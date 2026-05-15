@@ -3,20 +3,22 @@ import { type CollectionEntry, render } from "astro:content";
 
 import Masthead from "@/components/blog/Masthead.astro";
 import TOC from "@/components/blog/TOC.astro";
-import WebMentions from "@/components/blog/webmentions/index.astro";
 
 import BaseLayout from "./Base.astro";
 
 interface Props {
-	post: CollectionEntry<"post">;
+	post: CollectionEntry<"blog"> | CollectionEntry<"thinking">;
+	prev?: CollectionEntry<"blog"> | CollectionEntry<"thinking"> | null;
+	next?: CollectionEntry<"blog"> | CollectionEntry<"thinking"> | null;
 }
 
-const { post } = Astro.props;
-const { ogImage, title, description, updatedDate, publishDate } = post.data;
-const socialImage = ogImage ?? `/og-image/${post.id}.png`;
-const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
+const { post, prev, next } = Astro.props;
+const { title, description, date } = post.data;
+const articleDate = date.toISOString();
 const { headings, remarkPluginFrontmatter } = await render(post);
 const readingTime: string = remarkPluginFrontmatter.readingTime;
+const isEn = post.data.lang === "en";
+const socialImage = `/og-image/${post.id}.png`;
 ---
 
 <BaseLayout
@@ -35,7 +37,19 @@ const readingTime: string = remarkPluginFrontmatter.readingTime;
 				class="prose prose-sm prose-headings:font-semibold prose-headings:text-accent-2 prose-headings:before:absolute prose-headings:before:-ms-4 prose-headings:before:text-muted prose-headings:hover:before:text-accent sm:prose-headings:before:content-['#'] sm:prose-th:before:content-none"
 			>
 				<slot />
-				<WebMentions />
+				
+				<div class="mt-8 flex justify-between border-t border-border pt-4">
+					{prev ? (
+						<a href={`/${prev.data.lang}/${post.collection}/${prev.id.split('/').pop()}/`} class="cactus-link">
+							&larr; {isEn ? "Previous" : "上一篇"}
+						</a>
+					) : <span></span>}
+					{next ? (
+						<a href={`/${next.data.lang}/${post.collection}/${next.id.split('/').pop()}/`} class="cactus-link">
+							{isEn ? "Next" : "下一篇"} &rarr;
+						</a>
+					) : <span></span>}
+				</div>
 			</div>
 		</div>
 	</article>
