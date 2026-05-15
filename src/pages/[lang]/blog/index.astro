@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import PageLayout from "@/layouts/Base.astro";
+import FormattedDate from "@/components/FormattedDate.astro";
+
+export function getStaticPaths() {
+	return [{ params: { lang: "zh" } }, { params: { lang: "en" } }];
+}
+
+const { lang } = Astro.params;
+const isZh = lang === "zh";
+const title = isZh ? "博客" : "Blog";
+
+const allPosts = await getCollection("blog", (post) => post.data.lang === lang && !post.data.draft);
+allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<PageLayout meta={{ title }}>
+	<section>
+		<h1 class="title mb-6">{title}</h1>
+		<ul class="space-y-4">
+			{allPosts.map(post => (
+				<li>
+					<FormattedDate date={post.data.date} />
+					<a href={`/${lang}/blog/${post.id.split('/').pop()}/`} class="cactus-link block ml-4">{post.data.title}</a>
+				</li>
+			))}
+		</ul>
+	</section>
+</PageLayout>
