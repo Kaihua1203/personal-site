@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astro 博客主题对比</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --surface-hover: #1a1a1a;
+    --border: #262626;
+    --text: #e5e5e5;
+    --text-secondary: #a3a3a3;
+    --text-muted: #737373;
+    --accent: #3b82f6;
+    --accent-soft: rgba(59, 130, 246, 0.1);
+    --green: #22c55e;
+    --green-soft: rgba(34, 197, 94, 0.1);
+    --yellow: #eab308;
+    --yellow-soft: rgba(234, 179, 8, 0.1);
+    --red: #ef4444;
+    --red-soft: rgba(239, 68, 68, 0.1);
+    --purple: #a855f7;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 24px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #fff 0%, #a3a3a3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    font-weight: 300;
+  }
+
+  /* Theme Cards Grid */
+  .themes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 64px;
+  }
+
+  .theme-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .theme-card:hover {
+    border-color: #404040;
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+
+  .theme-card.recommended {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent), 0 20px 40px rgba(59,130,246,0.1);
+  }
+
+  .badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+
+  .badge.recommended {
+    background: var(--accent);
+    color: white;
+  }
+
+  .badge.popular {
+    background: var(--green-soft);
+    color: var(--green);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+
+  .badge.minimal {
+    background: var(--yellow-soft);
+    color: var(--yellow);
+    border: 1px solid rgba(234, 179, 8, 0.2);
+  }
+
+  .badge.elegant {
+    background: rgba(168, 85, 247, 0.1);
+    color: var(--purple);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+  }
+
+  .badge.colorful {
+    background: rgba(6, 182, 212, 0.1);
+    color: #06b6d4;
+    border: 1px solid rgba(6, 182, 212, 0.2);
+  }
+
+  .theme-preview {
+    height: 200px;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .preview-mockup {
+    width: 85%;
+    height: 80%;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+
+  /* Mockup styles for each theme */
+  .mockup-astrowind {
+    background: #0f172a;
+    padding: 8px;
+  }
+
+  .mockup-astrowind .topbar {
+    height: 8px;
+    background: #1e293b;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    gap: 4px;
+  }
+
+  .mockup-astrowind .topbar::before {
+    content: '';
+    width: 20px;
+    height: 4px;
+    background: #3b82f6;
+    border-radius: 2px;
+  }
+
+  .mockup-astrowind .topbar::after {
+    content: '';
+    width: 40px;
+    height: 3px;
+    background: #334155;
+    border-radius: 2px;
+    margin-left: auto;
+  }
+
+  .mockup-astrowind .hero {
+    height: 30px;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border-radius: 4px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+  }
+
+  .mockup-astrowind .hero::before {
+    content: '';
+    width: 50px;
+    height: 5px;
+    background: #3b82f6;
+    border-radius: 2px;
+  }
+
+  .mockup-astrowind .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+  }
+
+  .mockup-astrowind .card {
+    height: 50px;
+    background: #1e293b;
+    border-radius: 4px;
+    border: 1px solid #334155;
+  }
+
+  .mockup-astropaper {
+    background: #111;
+    padding: 8px;
+  }
+
+  .mockup-astropaper .topbar {
+    height: 8px;
+    background: #1a1a1a;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+  }
+
+  .mockup-astropaper .topbar::before {
+    content: '';
+    width: 24px;
+    height: 4px;
+    background: #fff;
+    border-radius: 2px;
+  }
+
+  .mockup-astropaper .search {
+    height: 20px;
+    background: #1a1a1a;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    border: 1px solid #262626;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+  }
+
+  .mockup-astropaper .posts {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mockup-astropaper .post {
+    height: 28px;
+    background: #1a1a1a;
+    border-radius: 4px;
+    border: 1px solid #262626;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    gap: 6px;
+  }
+
+  .mockup-astropaper .post::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #3b82f6;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .mockup-astropaper .post::after {
+    content: '';
+    width: 40px;
+    height: 3px;
+    background: #333;
+    border-radius: 2px;
+  }
+
+  .mockup-cactus {
+    background: #18181b;
+    padding: 8px;
+  }
+
+  .mockup-cactus .topbar {
+    height: 8px;
+    background: #27272a;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+  }
+
+  .mockup-cactus .topbar::before {
+    content: '';
+    width: 16px;
+    height: 4px;
+    background: #22c55e;
+    border-radius: 2px;
+  }
+
+  .mockup-cactus .content {
+    display: flex;
+    gap: 6px;
+  }
+
+  .mockup-cactus .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mockup-cactus .item {
+    height: 22px;
+    background: #27272a;
+    border-radius: 4px;
+    border: 1px solid #3f3f46;
+  }
+
+  .mockup-cactus .sidebar {
+    width: 30%;
+    background: #27272a;
+    border-radius: 4px;
+    border: 1px solid #3f3f46;
+  }
+
+  .mockup-openblog {
+    background: #0c0c0c;
+    padding: 8px;
+  }
+
+  .mockup-openblog .topbar {
+    height: 8px;
+    background: #171717;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+  }
+
+  .mockup-openblog .topbar::before {
+    content: '';
+    width: 20px;
+    height: 4px;
+    background: #a855f7;
+    border-radius: 2px;
+  }
+
+  .mockup-openblog .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+  }
+
+  .mockup-openblog .cell {
+    height: 55px;
+    background: #171717;
+    border-radius: 4px;
+    border: 1px solid #262626;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mockup-openblog .cell::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: linear-gradient(135deg, #1e1b4b, #312e81);
+    opacity: 0.3;
+  }
+
+  .mockup-ink {
+    background: #0d1117;
+    padding: 8px;
+  }
+
+  .mockup-ink .topbar {
+    height: 8px;
+    background: #161b22;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+  }
+
+  .mockup-ink .topbar::before {
+    content: '';
+    width: 18px;
+    height: 4px;
+    background: #06b6d4;
+    border-radius: 2px;
+  }
+
+  .mockup-ink .layout {
+    display: flex;
+    gap: 6px;
+  }
+
+  .mockup-ink .list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mockup-ink .entry {
+    height: 24px;
+    background: #161b22;
+    border-radius: 4px;
+    border: 1px solid #21262d;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    gap: 6px;
+  }
+
+  .mockup-ink .entry::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: #06b6d4;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .mockup-ink .entry::after {
+    content: '';
+    width: 35px;
+    height: 3px;
+    background: #21262d;
+    border-radius: 2px;
+  }
+
+  .mockup-ink .sidebar-ink {
+    width: 28%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mockup-ink .sidebar-block {
+    height: 30px;
+    background: #161b22;
+    border-radius: 4px;
+    border: 1px solid #21262d;
+  }
+
+  .mockup-ink .theme-dots {
+    display: flex;
+    gap: 3px;
+    justify-content: center;
+    margin-top: 4px;
+  }
+
+  .mockup-ink .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .mockup-ink .dot:nth-child(1) { background: #06b6d4; }
+  .mockup-ink .dot:nth-child(2) { background: #8b5cf6; }
+  .mockup-ink .dot:nth-child(3) { background: #f59e0b; }
+  .mockup-ink .dot:nth-child(4) { background: #22c55e; }
+
+  .theme-info {
+    padding: 24px;
+  }
+
+  .theme-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .theme-desc {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .theme-stats {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .stat-icon {
+    font-size: 1rem;
+  }
+
+  .theme-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .tag {
+    padding: 3px 10px;
+    background: var(--surface-hover);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+  }
+
+  .theme-links {
+    display: flex;
+    gap: 8px;
+  }
+
+  .link {
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .link.primary {
+    background: var(--accent);
+    color: white;
+  }
+
+  .link.primary:hover {
+    background: #2563eb;
+  }
+
+  .link.secondary {
+    background: var(--surface-hover);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+  }
+
+  .link.secondary:hover {
+    background: #262626;
+    color: var(--text);
+  }
+
+  /* Comparison Table */
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 64px;
+  }
+
+  .comparison-table thead {
+    background: var(--surface-hover);
+  }
+
+  .comparison-table th {
+    padding: 16px 20px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .comparison-table th:first-child {
+    width: 200px;
+  }
+
+  .comparison-table td {
+    padding: 14px 20px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+
+  .comparison-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .comparison-table tbody tr:hover {
+    background: var(--surface-hover);
+  }
+
+  .check {
+    color: var(--green);
+    font-weight: bold;
+  }
+
+  .cross {
+    color: var(--red);
+  }
+
+  .partial {
+    color: var(--yellow);
+  }
+
+  .feature-name {
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  /* Recommendation */
+  .recommendation {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 40px;
+  }
+
+  .recommendation h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .recommendation p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+
+  .recommendation ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .recommendation li {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    padding: 4px 0;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .recommendation li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  /* Radar Chart (CSS-only) */
+  .radar-section {
+    margin-bottom: 64px;
+  }
+
+  .radar-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .radar-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+  }
+
+  .radar-card h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+
+  .bar-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .bar-label {
+    width: 50px;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 1s ease;
+  }
+
+  .bar-fill.astrowind { background: var(--accent); }
+  .bar-fill.astropaper { background: var(--green); }
+  .bar-fill.cactus { background: var(--yellow); }
+  .bar-fill.openblog { background: var(--purple); }
+  .bar-fill.ink { background: #06b6d4; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 768px) {
+    .themes-grid {
+      grid-template-columns: 1fr;
+    }
+    .radar-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .comparison-table {
+      font-size: 0.8rem;
+    }
+    .comparison-table th, .comparison-table td {
+      padding: 10px 12px;
+    }
+    .header h1 {
+      font-size: 1.8rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>Astro 博客主题对比</h1>
+    <p>为个人博客挑选最合适的起点 — 聚焦暗黑模式、极简风格、Tailwind CSS</p>
+  </div>
+
+  <!-- Theme Cards -->
+  <div class="themes-grid">
+
+    <!-- AstroWind -->
+    <div class="theme-card recommended">
+      <div class="badge recommended">推荐</div>
+      <div class="theme-preview">
+        <div class="preview-mockup mockup-astrowind">
+          <div class="topbar"></div>
+          <div class="hero"></div>
+          <div class="cards">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+          </div>
+        </div>
+      </div>
+      <div class="theme-info">
+        <div class="theme-name">AstroWind</div>
+        <div class="theme-desc">生产级 Astro + Tailwind CSS 模板，功能全面，适合从零构建自定义博客。高度可定制，暗黑模式开箱即用。</div>
+        <div class="theme-stats">
+          <div class="stat"><span class="stat-icon">⭐</span> 5.6k</div>
+          <div class="stat"><span class="stat-icon">🔀</span> 1.6k forks</div>
+          <div class="stat"><span class="stat-icon">📦</span> 14 releases</div>
+          <div class="stat"><span class="stat-icon">🔄</span> 持续更新</div>
+        </div>
+        <div class="theme-tags">
+          <span class="tag">Astro v6</span>
+          <span class="tag">Tailwind v4</span>
+          <span class="tag">Dark Mode</span>
+          <span class="tag">MDX</span>
+          <span class="tag">SEO</span>
+          <span class="tag">RSS</span>
+          <span class="tag">Sitemap</span>
+        </div>
+        <div class="theme-links">
+          <a href="https://astrowind.vercel.app/" target="_blank" class="link primary">Demo</a>
+          <a href="https://github.com/onwidget/astrowind" target="_blank" class="link secondary">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- AstroPaper -->
+    <div class="theme-card">
+      <div class="badge popular">最流行</div>
+      <div class="theme-preview">
+        <div class="preview-mockup mockup-astropaper">
+          <div class="topbar"></div>
+          <div class="search"></div>
+          <div class="posts">
+            <div class="post"></div>
+            <div class="post"></div>
+            <div class="post"></div>
+            <div class="post"></div>
+          </div>
+        </div>
+      </div>
+      <div class="theme-info">
+        <div class="theme-name">AstroPaper</div>
+        <div class="theme-desc">最受欢迎的 Astro 博客主题，极简设计，内置搜索、分页、OG 图片生成。社区活跃，文档完善。</div>
+        <div class="theme-stats">
+          <div class="stat"><span class="stat-icon">⭐</span> 4.6k</div>
+          <div class="stat"><span class="stat-icon">🔀</span> 1.2k forks</div>
+          <div class="stat"><span class="stat-icon">📦</span> 38 releases</div>
+          <div class="stat"><span class="stat-icon">🔄</span> 2026.01 更新</div>
+        </div>
+        <div class="theme-tags">
+          <span class="tag">Astro v5</span>
+          <span class="tag">Tailwind CSS</span>
+          <span class="tag">Dark Mode</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">FuseJS 搜索</span>
+          <span class="tag">RSS</span>
+          <span class="tag">OG Image</span>
+        </div>
+        <div class="theme-links">
+          <a href="https://astro-paper.pages.dev/" target="_blank" class="link primary">Demo</a>
+          <a href="https://github.com/satnaing/astro-paper" target="_blank" class="link secondary">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Astro Cactus -->
+    <div class="theme-card">
+      <div class="badge minimal">极简</div>
+      <div class="theme-preview">
+        <div class="preview-mockup mockup-cactus">
+          <div class="topbar"></div>
+          <div class="content">
+            <div class="main">
+              <div class="item"></div>
+              <div class="item"></div>
+              <div class="item"></div>
+              <div class="item"></div>
+            </div>
+            <div class="sidebar"></div>
+          </div>
+        </div>
+      </div>
+      <div class="theme-info">
+        <div class="theme-name">Astro Cactus</div>
+        <div class="theme-desc">极简主义博客主题，语义化 HTML，支持 Webmentions。风格克制，适合喜欢留白的写作者。</div>
+        <div class="theme-stats">
+          <div class="stat"><span class="stat-icon">⭐</span> 1.6k</div>
+          <div class="stat"><span class="stat-icon">🔀</span> 400 forks</div>
+          <div class="stat"><span class="stat-icon">📦</span> Astro v6</div>
+          <div class="stat"><span class="stat-icon">🔄</span> 持续更新</div>
+        </div>
+        <div class="theme-tags">
+          <span class="tag">Astro v6</span>
+          <span class="tag">Tailwind v4</span>
+          <span class="tag">Dark Mode</span>
+          <span class="tag">MDX</span>
+          <span class="tag">Pagefind 搜索</span>
+          <span class="tag">Webmentions</span>
+          <span class="tag">OG Image</span>
+        </div>
+        <div class="theme-links">
+          <a href="https://astro-cactus.chriswilliams.dev/" target="_blank" class="link primary">Demo</a>
+          <a href="https://github.com/chrismwilliams/astro-theme-cactus" target="_blank" class="link secondary">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Openblog -->
+    <div class="theme-card">
+      <div class="badge elegant">优雅</div>
+      <div class="theme-preview">
+        <div class="preview-mockup mockup-openblog">
+          <div class="topbar"></div>
+          <div class="grid">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+          </div>
+        </div>
+      </div>
+      <div class="theme-info">
+        <div class="theme-name">Openblog</div>
+        <div class="theme-desc">优雅简洁的博客模板，卡片网格布局，内置 Tina CMS。有阅读时间、目录、动画等细节。</div>
+        <div class="theme-stats">
+          <div class="stat"><span class="stat-icon">⭐</span> 1k</div>
+          <div class="stat"><span class="stat-icon">🔀</span> 200 forks</div>
+          <div class="stat"><span class="stat-icon">📦</span> 活跃维护</div>
+          <div class="stat"><span class="stat-icon">🔄</span> 持续更新</div>
+        </div>
+        <div class="theme-tags">
+          <span class="tag">Astro</span>
+          <span class="tag">Tailwind CSS</span>
+          <span class="tag">Dark Mode</span>
+          <span class="tag">Tina CMS</span>
+          <span class="tag">Motion One</span>
+          <span class="tag">Pagefind</span>
+          <span class="tag">RSS</span>
+        </div>
+        <div class="theme-links">
+          <a href="https://blog-template-gray.vercel.app/" target="_blank" class="link primary">Demo</a>
+          <a href="https://github.com/danielcgilibert/blog-template" target="_blank" class="link secondary">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Astro Ink -->
+    <div class="theme-card">
+      <div class="badge colorful">多色彩</div>
+      <div class="theme-preview">
+        <div class="preview-mockup mockup-ink">
+          <div class="topbar"></div>
+          <div class="layout">
+            <div class="list">
+              <div class="entry"></div>
+              <div class="entry"></div>
+              <div class="entry"></div>
+              <div class="entry"></div>
+            </div>
+            <div class="sidebar-ink">
+              <div class="sidebar-block"></div>
+              <div class="sidebar-block"></div>
+            </div>
+          </div>
+          <div class="theme-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="theme-info">
+        <div class="theme-name">Astro Ink</div>
+        <div class="theme-desc">极简个人博客主题，最大亮点是 6+ 内置色彩主题（通过 Tailwind 配置切换）。使用 Svelte 构建交互组件，支持 Lunr.js 客户端搜索。</div>
+        <div class="theme-stats">
+          <div class="stat"><span class="stat-icon">⭐</span> 597</div>
+          <div class="stat"><span class="stat-icon">🔀</span> 150 forks</div>
+          <div class="stat"><span class="stat-icon">📦</span> Tailwind CSS</div>
+          <div class="stat"><span class="stat-icon">🔄</span> 维护中</div>
+        </div>
+        <div class="theme-tags">
+          <span class="tag">Astro</span>
+          <span class="tag">Svelte</span>
+          <span class="tag">Tailwind CSS</span>
+          <span class="tag">6+ 色彩主题</span>
+          <span class="tag">Lunr.js 搜索</span>
+          <span class="tag">Markdoc</span>
+          <span class="tag">Netlify CMS</span>
+        </div>
+        <div class="theme-links">
+          <a href="https://astro-ink.vercel.app/" target="_blank" class="link primary">Demo</a>
+          <a href="https://github.com/one-aalam/astro-ink" target="_blank" class="link secondary">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Comparison Table -->
+  <h2 class="section-title">功能对比</h2>
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>功能</th>
+        <th>AstroWind</th>
+        <th>AstroPaper</th>
+        <th>Astro Cactus</th>
+        <th>Openblog</th>
+        <th>Astro Ink</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="feature-name">Dark Mode</td>
+        <td><span class="check">✓</span> system/light/dark</td>
+        <td><span class="check">✓</span> toggle + localStorage</td>
+        <td><span class="check">✓</span> toggle</td>
+        <td><span class="check">✓</span> toggle</td>
+        <td><span class="check">✓</span> 6+ 色彩主题</td>
+      </tr>
+      <tr>
+        <td class="feature-name">Tailwind CSS</td>
+        <td><span class="check">✓</span> v4</td>
+        <td><span class="check">✓</span> v3</td>
+        <td><span class="check">✓</span> v4</td>
+        <td><span class="check">✓</span> v4</td>
+        <td><span class="check">✓</span></td>
+      </tr>
+      <tr>
+        <td class="feature-name">i18n 多语言</td>
+        <td><span class="cross">✗</span> 需自行实现</td>
+        <td><span class="cross">✗</span> 需自行实现</td>
+        <td><span class="cross">✗</span> 需自行实现</td>
+        <td><span class="cross">✗</span> 需自行实现</td>
+        <td><span class="cross">✗</span> 需自行实现</td>
+      </tr>
+      <tr>
+        <td class="feature-name">内置搜索</td>
+        <td><span class="cross">✗</span></td>
+        <td><span class="check">✓</span> FuseJS</td>
+        <td><span class="check">✓</span> Pagefind</td>
+        <td><span class="check">✓</span> Pagefind</td>
+        <td><span class="check">✓</span> Lunr.js</td>
+      </tr>
+      <tr>
+        <td class="feature-name">RSS Feed</td>
+        <td><span class="check">✓</span></td>
+        <td><span class="check">✓</span></td>
+        <td><span class="check">✓</span></td>
+        <td><span class="check">✓</span></td>
+        <td><span class="check">✓</span></td>
+      </tr>
+      <tr>
+        <td class="feature-name">Sitemap</td>
+        <td><span class="check">✓</span></td>
+        <td><span class="check">✓</span></td>
+        <td><span class="check">✓</span></td>
+        <td><span class="check">✓</span></td>
+        <td><span class="cross">✗</span></td>
+      </tr>
+      <tr>
+        <td class="feature-name">OG Image 生成</td>
+        <td><span class="check">✓</span></td>
+        <td><span class="check">✓</span></td>
+        <td><span class="check">✓</span> Satori</td>
+        <td><span class="cross">✗</span></td>
+        <td><span class="cross">✗</span></td>
+      </tr>
+      <tr>
+        <td class="feature-name">代码高亮</td>
+        <td><span class="check">✓</span></td>
+        <td><span class="check">✓</span> Shiki</td>
+        <td><span class="check">✓</span> Expressive Code</td>
+        <td><span class="check">✓</span></td>
+        <td><span class="check">✓</span></td>
+      </tr>
+      <tr>
+        <td class="feature-name">阅读时间</td>
+        <td><span class="cross">✗</span></td>
+        <td><span class="cross">✗</span></td>
+        <td><span class="cross">✗</span></td>
+        <td><span class="check">✓</span></td>
+        <td><span class="cross">✗</span></td>
+      </tr>
+      <tr>
+        <td class="feature-name">目录 (TOC)</td>
+        <td><span class="cross">✗</span></td>
+        <td><span class="cross">✗</span></td>
+        <td><span class="cross">✗</span></td>
+        <td><span class="check">✓</span></td>
+        <td><span class="cross">✗</span></td>
+      </tr>
+      <tr>
+        <td class="feature-name">CMS 集成</td>
+        <td><span class="cross">✗</span></td>
+        <td><span class="cross">✗</span></td>
+        <td><span class="cross">✗</span></td>
+        <td><span class="check">✓</span> Tina CMS</td>
+        <td><span class="check">✓</span> Netlify CMS</td>
+      </tr>
+      <tr>
+        <td class="feature-name">交互框架</td>
+        <td>Astro Islands</td>
+        <td>Astro Islands</td>
+        <td>Astro Islands</td>
+        <td>Motion One</td>
+        <td><span class="check">✓</span> Svelte</td>
+      </tr>
+      <tr>
+        <td class="feature-name">色彩主题</td>
+        <td>暗/亮双色</td>
+        <td>暗/亮双色</td>
+        <td>暗/亮双色</td>
+        <td>暗/亮双色</td>
+        <td><span class="check">✓</span> 6+ 主题切换</td>
+      </tr>
+      <tr>
+        <td class="feature-name">MDX 支持</td>
+        <td><span class="check">✓</span></td>
+        <td><span class="cross">✗</span></td>
+        <td><span class="check">✓</span></td>
+        <td><span class="check">✓</span></td>
+        <td><span class="partial">~</span> Markdoc</td>
+      </tr>
+      <tr>
+        <td class="feature-name">Lighthouse 分数</td>
+        <td>100/100</td>
+        <td>100/100</td>
+        <td>100/100</td>
+        <td>100/100</td>
+        <td>100/100</td>
+      </tr>
+      <tr>
+        <td class="feature-name">活跃度</td>
+        <td><span class="check">✓</span> 高</td>
+        <td><span class="check">✓</span> 高</td>
+        <td><span class="check">✓</span> 中</td>
+        <td><span class="check">✓</span> 中</td>
+        <td><span class="partial">~</span> 低</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Dimension Ratings -->
+  <h2 class="section-title">维度评分</h2>
+  <div class="radar-grid">
+
+    <div class="radar-card">
+      <h4>可定制性</h4>
+      <div class="bar-chart">
+        <div class="bar-row">
+          <span class="bar-label">Wind</span>
+          <div class="bar-track"><div class="bar-fill astrowind" style="width:95%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Paper</span>
+          <div class="bar-track"><div class="bar-fill astropaper" style="width:80%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Cactus</span>
+          <div class="bar-track"><div class="bar-fill cactus" style="width:75%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Open</span>
+          <div class="bar-track"><div class="bar-fill openblog" style="width:85%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Ink</span>
+          <div class="bar-track"><div class="bar-fill ink" style="width:70%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="radar-card">
+      <h4>开箱即用</h4>
+      <div class="bar-chart">
+        <div class="bar-row">
+          <span class="bar-label">Wind</span>
+          <div class="bar-track"><div class="bar-fill astrowind" style="width:70%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Paper</span>
+          <div class="bar-track"><div class="bar-fill astropaper" style="width:90%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Cactus</span>
+          <div class="bar-track"><div class="bar-fill cactus" style="width:80%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Open</span>
+          <div class="bar-track"><div class="bar-fill openblog" style="width:85%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Ink</span>
+          <div class="bar-track"><div class="bar-fill ink" style="width:75%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="radar-card">
+      <h4>社区生态</h4>
+      <div class="bar-chart">
+        <div class="bar-row">
+          <span class="bar-label">Wind</span>
+          <div class="bar-track"><div class="bar-fill astrowind" style="width:85%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Paper</span>
+          <div class="bar-track"><div class="bar-fill astropaper" style="width:95%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Cactus</span>
+          <div class="bar-track"><div class="bar-fill cactus" style="width:60%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Open</span>
+          <div class="bar-track"><div class="bar-fill openblog" style="width:50%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Ink</span>
+          <div class="bar-track"><div class="bar-fill ink" style="width:35%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="radar-card">
+      <h4>接近 Kimi 风格</h4>
+      <div class="bar-chart">
+        <div class="bar-row">
+          <span class="bar-label">Wind</span>
+          <div class="bar-track"><div class="bar-fill astrowind" style="width:75%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Paper</span>
+          <div class="bar-track"><div class="bar-fill astropaper" style="width:70%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Cactus</span>
+          <div class="bar-track"><div class="bar-fill cactus" style="width:60%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Open</span>
+          <div class="bar-track"><div class="bar-fill openblog" style="width:80%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Ink</span>
+          <div class="bar-track"><div class="bar-fill ink" style="width:65%"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Recommendation -->
+  <h2 class="section-title">选型建议</h2>
+
+  <div class="recommendation">
+    <h3>🏆 首选：AstroWind</h3>
+    <p>5.6k stars，持续活跃，Astro v6 + Tailwind v4，功能最全面。高度可定制意味着你可以从这个基础出发，逐步逼近 Kimi 的视觉风格。适合"先搭框架再调设计"的开发路径。</p>
+    <ul>
+      <li>暗黑模式支持 system/light/dark 三种策略</li>
+      <li>内置博客所需的全部基础功能（RSS、Sitemap、SEO）</li>
+      <li>Tailwind v4 的 CSS 变量体系方便后续做视觉定制</li>
+    </ul>
+  </div>
+
+  <div class="recommendation">
+    <h3>🥈 备选：Openblog</h3>
+    <p>如果你更看重"开箱即用的博客体验"（目录、阅读时间、卡片网格、动画），Openblog 更接近 Kimi 的卡片风格，且内置 Tina CMS 方便内容管理。缺点是社区较小，遇到问题参考资料少。</p>
+    <ul>
+      <li>卡片网格布局最接近 Kimi 风格</li>
+      <li>内置 Motion One 动画，页面过渡更丝滑</li>
+      <li>Tina CMS 提供可视化编辑能力</li>
+    </ul>
+  </div>
+
+  <div class="recommendation">
+    <h3>🎨 特别提及：Astro Ink</h3>
+    <p>597 stars，最大特色是 6+ 内置色彩主题（cyan、purple、amber、green 等），通过 Tailwind 配置一键切换。使用 Svelte 构建交互组件。缺点是社区较小、Svelte 增加了技术栈复杂度。如果你对"多种预设色彩风格"感兴趣，值得一看。</p>
+    <ul>
+      <li>6+ 内置色彩主题，无需自己调色</li>
+      <li>Svelte 交互组件（主题切换器等）</li>
+      <li>Netlify CMS 集成，支持可视化编辑</li>
+    </ul>
+  </div>
+
+  <div class="recommendation">
+    <h3>💡 关于 i18n</h3>
+    <p>五个主题都不内置 i18n，但 Astro 有官方 <code>@astrojs/i18n</code> 集成。无论选哪个主题，双语支持都需要手动配置路由和内容目录。这部分工作量与主题选择无关。</p>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>生成于 2026-05-12 · 数据来源：GitHub · 点击 Demo/GitHub 链接可跳转查看实际效果</p>
+  </div>
+
+</div>
+
+</body>
+</html>

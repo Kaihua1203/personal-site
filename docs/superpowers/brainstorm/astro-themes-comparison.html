@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Astro 主题精选</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --bg: #f5f5f7;
+      --surface: rgba(255, 255, 255, 0.78);
+      --surface-strong: rgba(255, 255, 255, 0.92);
+      --line: rgba(17, 17, 17, 0.08);
+      --text: #1d1d1f;
+      --muted: #6e6e73;
+      --blue: #0071e3;
+      --green: #34c759;
+      --pink: #ff375f;
+      --violet: #5856d6;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.08);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --ease: 280ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "SF Pro Display", "Inter", "PingFang SC", "Helvetica Neue", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(0, 113, 227, 0.08), transparent 28%),
+        radial-gradient(circle at 85% 12%, rgba(88, 86, 214, 0.08), transparent 26%),
+        linear-gradient(180deg, #fbfbfd 0%, #f5f5f7 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(1220px, calc(100% - 28px));
+      margin: 14px auto 40px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(24px) saturate(180%);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, #0a84ff, #5e5ce6);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35);
+    }
+
+    .nav {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 14px;
+      transition: background var(--ease), color var(--ease);
+    }
+
+    .nav a:hover {
+      background: rgba(0, 0, 0, 0.05);
+      color: var(--text);
+    }
+
+    .hero {
+      margin-top: 20px;
+      padding: 48px 42px 40px;
+      border-radius: 40px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.7)),
+        linear-gradient(135deg, rgba(10, 132, 255, 0.12), rgba(88, 86, 214, 0.12));
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      bottom: -40px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 113, 227, 0.16), transparent 60%);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      margin: 18px 0 12px;
+      font-size: clamp(38px, 7vw, 84px);
+      line-height: 0.94;
+      letter-spacing: -0.06em;
+      max-width: 9ch;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 58ch;
+      font-size: 20px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+      max-width: 760px;
+    }
+
+    .stat {
+      padding: 18px 20px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(18px);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 26px;
+      letter-spacing: -0.04em;
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section {
+      margin-top: 22px;
+      padding: 28px;
+      border-radius: 34px;
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(22px) saturate(180%);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .section-head h2 {
+      margin: 0 0 6px;
+      font-size: 34px;
+      letter-spacing: -0.05em;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 56ch;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      padding: 20px;
+      min-height: 500px;
+      border-radius: 30px;
+      color: #fff;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+      transition: transform var(--ease), box-shadow var(--ease);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 28px 56px rgba(0, 0, 0, 0.16);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0));
+      pointer-events: none;
+    }
+
+    .card-paper {
+      background:
+        radial-gradient(circle at top right, rgba(255, 255, 255, 0.2), transparent 28%),
+        linear-gradient(180deg, #0e0e11 0%, #202126 100%);
+    }
+
+    .card-cactus {
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(255, 255, 255, 0.6), transparent 24%),
+        linear-gradient(180deg, #fbfbfd 0%, #efeff4 100%);
+    }
+
+    .card-ink {
+      background:
+        radial-gradient(circle at top right, rgba(255, 255, 255, 0.18), transparent 24%),
+        linear-gradient(180deg, #10233f 0%, #233d73 100%);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(12px);
+    }
+
+    .card-cactus .badge {
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .stars {
+      font-size: 14px;
+      font-weight: 700;
+      opacity: 0.88;
+    }
+
+    .card h3 {
+      margin: 18px 0 8px;
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-subtitle {
+      margin: 0 0 18px;
+      font-size: 16px;
+      line-height: 1.7;
+      opacity: 0.82;
+      position: relative;
+      z-index: 1;
+    }
+
+    .visual {
+      position: relative;
+      z-index: 1;
+      height: 190px;
+      padding: 16px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+    }
+
+    .card-cactus .visual {
+      background: rgba(255, 255, 255, 0.72);
+      border-color: rgba(17, 17, 17, 0.06);
+    }
+
+    .visual .bar {
+      height: 10px;
+      width: 48%;
+      border-radius: 999px;
+      margin-bottom: 12px;
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .card-cactus .visual .bar {
+      background: rgba(29, 29, 31, 0.72);
+      width: 32%;
+    }
+
+    .visual .line {
+      height: 8px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .card-cactus .visual .line {
+      background: rgba(29, 29, 31, 0.12);
+    }
+
+    .visual-grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .paper-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .paper-grid div {
+      height: 22px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .cactus-grid {
+      grid-template-columns: 1fr;
+      padding-top: 18px;
+    }
+
+    .cactus-grid div {
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(29, 29, 31, 0.1);
+    }
+
+    .ink-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .ink-grid div {
+      height: 46px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .ink-grid div:nth-child(1) {
+      background: rgba(52, 199, 89, 0.26);
+    }
+
+    .ink-grid div:nth-child(2) {
+      background: rgba(94, 92, 230, 0.26);
+    }
+
+    .ink-grid div:nth-child(3) {
+      background: rgba(255, 55, 95, 0.24);
+    }
+
+    .meta {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .meta-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      font-size: 14px;
+    }
+
+    .card-cactus .meta-item {
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .meta-item span {
+      opacity: 0.72;
+    }
+
+    .meta-item strong {
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .matrix {
+      overflow: auto;
+      border-radius: 24px;
+      background: var(--surface-strong);
+      border: 1px solid var(--line);
+    }
+
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 20px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.88);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    tbody tr:hover {
+      background: rgba(0, 0, 0, 0.015);
+    }
+
+    .theme-name {
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .score {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .meter {
+      width: 84px;
+      height: 8px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.06);
+    }
+
+    .meter span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #5ac8fa, #0071e3);
+    }
+
+    .chooser {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .chooser-card {
+      padding: 22px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(17, 17, 17, 0.06);
+    }
+
+    .chooser-card h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      letter-spacing: -0.04em;
+    }
+
+    .chooser-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    @media (max-width: 1100px) {
+      .cards,
+      .chooser {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        width: min(100% - 16px, 1220px);
+      }
+
+      .topbar {
+        align-items: start;
+        flex-direction: column;
+        border-radius: 28px;
+      }
+
+      .hero {
+        padding: 30px 22px 26px;
+        border-radius: 30px;
+      }
+
+      .hero h1 {
+        font-size: clamp(34px, 13vw, 54px);
+        max-width: none;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+
+      .section {
+        padding: 22px 16px;
+        border-radius: 28px;
+      }
+
+      .section-head {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .card {
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark"></span>
+        <span>Astro Theme Selection</span>
+      </div>
+      <nav class="nav">
+        <a href="#overview">精选主题</a>
+        <a href="#matrix">核心对比</a>
+        <a href="#pick">选择建议</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <span class="eyebrow">Curated Three</span>
+      <h1>只看值得继续比较的三套主题</h1>
+      <p>已经排除 Openblog 和 AstroWind 后，这一页只保留更适合继续权衡的三个方向：成熟博客、极简写作、多配色个性化。整体视觉改成更偏 Apple App Store 的卡片式呈现。</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <strong>AstroPaper</strong>
+          <span>最成熟，最适合重内容写作</span>
+        </div>
+        <div class="stat">
+          <strong>Astro Cactus</strong>
+          <span>最安静，最适合极简表达</span>
+        </div>
+        <div class="stat">
+          <strong>Astro Ink</strong>
+          <span>最灵活，最适合配色个性化</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="overview">
+      <div class="section-head">
+        <div>
+          <h2>精选主题</h2>
+          <p>每张卡片都像一个 App Store 专题封面，先让你凭视觉气质做第一轮判断，再结合下方数据细比。</p>
+        </div>
+      </div>
+
+      <div class="cards">
+        <article class="card card-paper">
+          <div class="card-top">
+            <div class="badge">最流行</div>
+            <div class="stars">4.6k stars</div>
+          </div>
+          <h3>AstroPaper</h3>
+          <p class="card-subtitle">成熟、克制、内容优先。它不像在展示模板，而是在展示文章本身。</p>
+          <div class="visual">
+            <div class="bar"></div>
+            <div class="line" style="width: 72%;"></div>
+            <div class="line" style="width: 58%;"></div>
+            <div class="visual-grid paper-grid">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="meta-item"><span>特色标签</span><strong>社区最强</strong></div>
+            <div class="meta-item"><span>最适合</span><strong>长期博客写作</strong></div>
+            <div class="meta-item"><span>关键词</span><strong>成熟 / 稳定 / 内容导向</strong></div>
+          </div>
+        </article>
+
+        <article class="card card-cactus">
+          <div class="card-top">
+            <div class="badge">最克制</div>
+            <div class="stars">1.6k stars</div>
+          </div>
+          <h3>Astro Cactus</h3>
+          <p class="card-subtitle">留白很多，视觉噪音极低。它的价值在于不打断阅读，而不是主动吸引注意力。</p>
+          <div class="visual">
+            <div class="bar"></div>
+            <div class="line" style="width: 44%;"></div>
+            <div class="line" style="width: 38%;"></div>
+            <div class="visual-grid cactus-grid">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="meta-item"><span>特色标签</span><strong>极简留白</strong></div>
+            <div class="meta-item"><span>最适合</span><strong>纯文字个人站</strong></div>
+            <div class="meta-item"><span>关键词</span><strong>安静 / 编辑感 / 轻量</strong></div>
+          </div>
+        </article>
+
+        <article class="card card-ink">
+          <div class="card-top">
+            <div class="badge">最多变化</div>
+            <div class="stars">597 stars</div>
+          </div>
+          <h3>Astro Ink</h3>
+          <p class="card-subtitle">核心结构仍是博客，但通过内置配色主题，能更快做出明显不同的个人风格。</p>
+          <div class="visual">
+            <div class="bar" style="background: linear-gradient(90deg, #34c759, #5856d6, #ff375f); width: 58%;"></div>
+            <div class="line" style="width: 76%;"></div>
+            <div class="line" style="width: 52%;"></div>
+            <div class="visual-grid ink-grid">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="meta-item"><span>特色标签</span><strong>6+ 内置主题</strong></div>
+            <div class="meta-item"><span>最适合</span><strong>强调个性化外观</strong></div>
+            <div class="meta-item"><span>关键词</span><strong>灵活 / 多彩 / 可玩性</strong></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="matrix">
+      <div class="section-head">
+        <div>
+          <h2>核心对比</h2>
+          <p>保留最重要的五个维度：流行度、标签、设计气质、适合人群、使用倾向。</p>
+        </div>
+      </div>
+
+      <div class="matrix">
+        <table>
+          <thead>
+            <tr>
+              <th>主题</th>
+              <th>Stars</th>
+              <th>特色标签</th>
+              <th>设计气质</th>
+              <th>适合谁</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="theme-name">AstroPaper</td>
+              <td>
+                <div class="score">
+                  <div class="meter"><span style="width: 100%;"></span></div>
+                  <strong>4.6k</strong>
+                </div>
+              </td>
+              <td>最流行 · 社区最强</td>
+              <td>成熟、克制、内容优先</td>
+              <td>长期写博客，想依赖成熟生态的人</td>
+            </tr>
+            <tr>
+              <td class="theme-name">Astro Cactus</td>
+              <td>
+                <div class="score">
+                  <div class="meter"><span style="width: 35%;"></span></div>
+                  <strong>1.6k</strong>
+                </div>
+              </td>
+              <td>极简 · 留白风格</td>
+              <td>安静、轻、编辑感</td>
+              <td>想把注意力完全交给文字的人</td>
+            </tr>
+            <tr>
+              <td class="theme-name">Astro Ink</td>
+              <td>
+                <div class="score">
+                  <div class="meter"><span style="width: 13%;"></span></div>
+                  <strong>597</strong>
+                </div>
+              </td>
+              <td>多色彩 · 6+ 内置主题</td>
+              <td>鲜明、灵活、可定制</td>
+              <td>希望保留博客骨架，但更强调配色表达的人</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="pick">
+      <div class="section-head">
+        <div>
+          <h2>选择建议</h2>
+          <p>如果你已经排除“功能最全”和“最显眼的展示型”，剩下这三套的区别就很明确了。</p>
+        </div>
+      </div>
+
+      <div class="chooser">
+        <article class="chooser-card">
+          <h3>优先稳妥</h3>
+          <p>选 <strong>AstroPaper</strong>。这是三者里最不容易选错的一套，适合把主要精力放在内容生产上。</p>
+        </article>
+        <article class="chooser-card">
+          <h3>优先极简</h3>
+          <p>选 <strong>Astro Cactus</strong>。如果你希望页面像一张安静的纸，而不是一个活跃的产品界面，它更对路。</p>
+        </article>
+        <article class="chooser-card">
+          <h3>优先个性</h3>
+          <p>选 <strong>Astro Ink</strong>。它的优势不是社区体量，而是更快做出属于你自己的配色气质。</p>
+        </article>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
