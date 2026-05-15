@@ -1,8 +1,27 @@
 ---
 import Search from "@/components/Search.astro";
 import ThemeToggle from "@/components/ThemeToggle.astro";
-import { menuLinks } from "@/site.config";
 import { siteConfig } from "../../site.config";
+
+const url = new URL(Astro.request.url);
+const isEn = url.pathname.startsWith('/en');
+const currentLang = isEn ? 'en' : 'zh';
+const targetLang = isEn ? 'zh' : 'en';
+
+// Replace current lang prefix with target lang prefix
+const switcherPath = url.pathname.replace(`/${currentLang}`, `/${targetLang}`);
+
+const navLinks = isEn ? [
+	{ path: "/en/", title: "Home" },
+	{ path: "/en/blog/", title: "Blog" },
+	{ path: "/en/thinking/", title: "Thinking" },
+	{ path: "/en/about/", title: "About" },
+] : [
+	{ path: "/zh/", title: "首页" },
+	{ path: "/zh/blog/", title: "博客" },
+	{ path: "/zh/thinking/", title: "随想" },
+	{ path: "/zh/about/", title: "关于我" },
+];
 ---
 
 <header class="group relative mb-28 flex items-center sm:ps-18" id="main-header">
@@ -40,7 +59,7 @@ import { siteConfig } from "../../site.config";
 			id="navigation-menu"
 		>
 			{
-				menuLinks.map((link) => (
+				navLinks.map((link) => (
 					<a
 						aria-current={Astro.url.pathname === link.path ? "page" : false}
 						class="text-accent px-2 py-4 font-semibold sm:px-4 sm:py-0 sm:underline-offset-2 sm:hover:underline"
@@ -52,6 +71,9 @@ import { siteConfig } from "../../site.config";
 			}
 		</nav>
 	</div>
+	<a href={switcherPath} class="text-accent mx-2 font-semibold hover:underline">
+		{isEn ? "中文" : "EN"}
+	</a>
 	<Search />
 	<ThemeToggle />
 	<mobile-button>
