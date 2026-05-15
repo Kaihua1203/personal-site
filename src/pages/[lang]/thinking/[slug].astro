@@ -1,0 +1,28 @@
+---
+import { getCollection, render } from "astro:content";
+import PageLayout from "@/layouts/Base.astro";
+import FormattedDate from "@/components/FormattedDate.astro";
+
+export async function getStaticPaths() {
+	const thoughts = await getCollection("thinking");
+	return thoughts.map((post) => {
+		const lang = post.data.lang;
+		const slug = post.id.split('/').pop();
+		return {
+			params: { lang, slug },
+			props: { post },
+		};
+	});
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<PageLayout meta={{ title: post.data.title, description: post.data.description }}>
+	<article class="prose prose-cactus mt-8">
+		<h1 class="title mb-4">{post.data.title}</h1>
+		<p class="text-muted mb-8"><FormattedDate date={post.data.date} /></p>
+		<Content />
+	</article>
+</PageLayout>
