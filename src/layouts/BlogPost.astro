@@ -8,8 +8,8 @@ import BaseLayout from "./Base.astro";
 
 interface Props {
 	post: CollectionEntry<"blog"> | CollectionEntry<"thinking">;
-	prev?: CollectionEntry<"blog"> | CollectionEntry<"thinking"> | null;
-	next?: CollectionEntry<"blog"> | CollectionEntry<"thinking"> | null;
+	prev?: CollectionEntry<"blog"> | CollectionEntry<"thinking"> | null | undefined;
+	next?: CollectionEntry<"blog"> | CollectionEntry<"thinking"> | null | undefined;
 }
 
 const { post, prev, next } = Astro.props;

@@ -4,18 +4,18 @@ import BlogPost from "@/layouts/BlogPost.astro";
 
 export async function getStaticPaths() {
 	const posts = await getCollection("thinking", (post) => !post.data.draft);
-	
+
 	// Sort by date descending
 	posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-	return posts.map((post, index) => {
+	return posts.map((post) => {
 		const lang = post.data.lang;
-		const slug = post.id.split('/').pop();
-		
+		const slug = post.id.split("/").pop();
+
 		// Determine previous and next posts (filtering by language)
-		const sameLangPosts = posts.filter(p => p.data.lang === lang);
-		const langIndex = sameLangPosts.findIndex(p => p.id === post.id);
-		
+		const sameLangPosts = posts.filter((p) => p.data.lang === lang);
+		const langIndex = sameLangPosts.findIndex((p) => p.id === post.id);
+
 		const next = langIndex > 0 ? sameLangPosts[langIndex - 1] : null; // Newer post
 		const prev = langIndex < sameLangPosts.length - 1 ? sameLangPosts[langIndex + 1] : null; // Older post
 

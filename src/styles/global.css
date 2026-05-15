@@ -52,7 +52,9 @@
 	--color-accent: #8a5a2b;
 	--color-accent-2: #efe1cf;
 	--color-quote: #e3d8c8;
-	--font-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system, sans-serif;
+	--font-sans:
+		"PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system,
+		sans-serif;
 }
 
 @layer base {
