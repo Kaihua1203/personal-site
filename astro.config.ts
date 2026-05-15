@@ -22,6 +22,13 @@ import { expressiveCodeOptions, siteConfig } from "./src/site.config";
 // https://astro.build/config
 export default defineConfig({
 	site: siteConfig.url,
+	i18n: {
+		defaultLocale: "zh",
+		locales: ["zh", "en"],
+		routing: {
+			prefixDefaultLocale: true,
+		},
+	},
 	image: {
 		domains: ["webmention.io"],
 	},
