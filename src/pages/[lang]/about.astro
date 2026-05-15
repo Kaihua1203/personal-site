@@ -1,0 +1,21 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+
+export function getStaticPaths() {
+	return [{ params: { lang: "zh" } }, { params: { lang: "en" } }];
+}
+
+const { lang } = Astro.params;
+const isZh = lang === "zh";
+
+const title = isZh ? "关于我" : "About Me";
+---
+
+<PageLayout meta={{ title }}>
+	<section>
+		<h1 class="title mb-6">{title}</h1>
+		<p class="mb-4">
+			{isZh ? "这里是关于页面的内容。Python 专家，Web 开发初学者。" : "This is the about page. Python expert, Web dev beginner."}
+		</p>
+	</section>
+</PageLayout>
