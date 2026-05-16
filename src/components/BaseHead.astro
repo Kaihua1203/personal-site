@@ -10,7 +10,7 @@ const { articleDate, description, ogImage, title } = Astro.props;
 
 const titleSeparator = "•";
 const siteTitle = `${title} ${titleSeparator} ${siteConfig.title}`;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
 const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url).href;
 ---
 
@@ -33,7 +33,7 @@ const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url
 }
 
 {/* Canonical URL */}
-<link href={canonicalURL} rel="canonical" />
+{canonicalURL && <link href={canonicalURL} rel="canonical" />}
 
 {/* Primary Meta Tags */}
 <meta content={siteTitle} name="title" />
@@ -44,7 +44,7 @@ const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url
 <meta content={articleDate ? "article" : "website"} property="og:type" />
 <meta content={title} property="og:title" />
 <meta content={description} property="og:description" />
-<meta content={canonicalURL} property="og:url" />
+{canonicalURL && <meta content={canonicalURL} property="og:url" />}
 <meta content={siteConfig.title} property="og:site_name" />
 <meta content={siteConfig.ogLocale} property="og:locale" />
 <meta content={socialImageURL} property="og:image" />
@@ -61,17 +61,13 @@ const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url
 
 {/* Twitter */}
 <meta content="summary_large_image" property="twitter:card" />
-<meta content={canonicalURL} property="twitter:url" />
+{canonicalURL && <meta content={canonicalURL} property="twitter:url" />}
 <meta content={title} property="twitter:title" />
 <meta content={description} property="twitter:description" />
 <meta content={socialImageURL} property="twitter:image" />
 
 {/* Sitemap */}
-<link href="/sitemap-index.xml" rel="sitemap" />
-
-{/* RSS auto-discovery */}
-<link href="/rss.xml" title="Blog" rel="alternate" type="application/rss+xml" />
-<link href="/notes/rss.xml" title="Notes" rel="alternate" type="application/rss+xml" />
+{Astro.site && <link href="/sitemap-index.xml" rel="sitemap" />}
 
 {/* Webmentions */}
 {

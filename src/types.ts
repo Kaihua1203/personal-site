@@ -8,7 +8,7 @@ export interface SiteConfig {
 	lang: string;
 	ogLocale: string;
 	title: string;
-	url: string;
+	url?: string;
 }
 
 export interface PaginationLink {

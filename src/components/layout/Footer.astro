@@ -1,7 +1,8 @@
 ---
-import { menuLinks, siteConfig } from "@/site.config";
+import { getMenuLinks, getSiteLanguage, siteConfig } from "@/site.config";
 
 const year = new Date().getFullYear();
+const menuLinks = getMenuLinks(getSiteLanguage(Astro.url.pathname));
 ---
 
 <footer

@@ -21,7 +21,7 @@ import { expressiveCodeOptions, siteConfig } from "./src/site.config";
 
 // https://astro.build/config
 export default defineConfig({
-	site: siteConfig.url,
+	...(siteConfig.url ? { site: siteConfig.url } : {}),
 	i18n: {
 		defaultLocale: "zh",
 		locales: ["zh", "en"],
@@ -35,7 +35,6 @@ export default defineConfig({
 	integrations: [
 		expressiveCode(expressiveCodeOptions),
 		icon(),
-		sitemap(),
 		mdx(),
 		robotsTxt(),
 		webmanifest({
@@ -72,6 +71,7 @@ export default defineConfig({
 				insertManifestLink: false,
 			},
 		}),
+		...(siteConfig.url ? [sitemap()] : []),
 	],
 	markdown: {
 		rehypePlugins: [

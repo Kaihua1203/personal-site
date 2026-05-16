@@ -7,7 +7,7 @@ const CACHE_DIR = ".data";
 const filePath = `${CACHE_DIR}/webmentions.json`;
 const validWebmentionTypes = ["like-of", "mention-of", "in-reply-to"];
 
-const hostName = new URL(DOMAIN).hostname;
+const hostName = DOMAIN ? new URL(DOMAIN).hostname : null;
 
 // Calls webmention.io api.
 async function fetchWebmentions(timeFrom: string | null, perPage = 1000) {
@@ -20,6 +20,8 @@ async function fetchWebmentions(timeFrom: string | null, perPage = 1000) {
 		console.warn("No webmention api token specified in .env");
 		return null;
 	}
+
+	if (!hostName) return null;
 
 	let url = `https://webmention.io/api/mentions.jf2?domain=${hostName}&token=${WEBMENTION_API_KEY}&sort-dir=up&per-page=${perPage}`;
 

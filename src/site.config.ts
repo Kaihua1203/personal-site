@@ -1,24 +1,22 @@
 import type { AstroExpressiveCodeOptions } from "astro-expressive-code";
 import type { SiteConfig } from "@/types";
 
+export type SiteLanguage = "en" | "zh";
+
+function normalizeSiteUrl(value: string | undefined) {
+	if (!value) return undefined;
+	return new URL(value).href;
+}
+
+const siteUrl = normalizeSiteUrl(process.env.SITE_URL);
+
 export const siteConfig: SiteConfig = {
-	// ! Please remember to replace the following site property with your own domain, used in astro.config.ts
-	url: "https://astro-cactus.chriswilliams.dev/",
-	/*
-		- Used to construct the meta title property found in src/components/BaseHead.astro L:11
-		- The webmanifest name found in astro.config.ts L:42
-		- The link value found in src/components/layout/Header.astro L:35
-		- In the footer found in src/components/layout/Footer.astro L:12
-	*/
-	title: "Astro Cactus",
-	// Used as both a meta property (src/components/BaseHead.astro L:31 + L:49) & the generated satori png (src/pages/og-image/[slug].png.ts)
-	author: "Chris Williams",
-	// Used as the default description meta property and webmanifest description
-	description: "An opinionated starter theme for Astro",
-	// HTML lang property, found in src/layouts/Base.astro L:18 & astro.config.ts L:48
-	lang: "en-GB",
-	// Meta property, found in src/components/BaseHead.astro L:42
-	ogLocale: "en_GB",
+	...(siteUrl ? { url: siteUrl } : {}),
+	title: "Personal Site",
+	author: "Site Owner",
+	description: "A bilingual personal website in Chinese and English.",
+	lang: "zh-CN",
+	ogLocale: "zh_CN",
 	// Date.prototype.toLocaleDateString() parameters, found in src/utils/date.ts.
 	date: {
 		locale: "en-GB",
@@ -30,25 +28,31 @@ export const siteConfig: SiteConfig = {
 	},
 };
 
-// Used to generate links in both the Header & Footer.
-export const menuLinks: { path: string; title: string }[] = [
-	{
-		path: "/",
-		title: "Home",
-	},
-	{
-		path: "/about/",
-		title: "About",
-	},
-	{
-		path: "/posts/",
-		title: "Blog",
-	},
-	{
-		path: "/notes/",
-		title: "Notes",
-	},
-];
+export function getSiteLanguage(pathname: string): SiteLanguage {
+	return pathname.startsWith("/en") ? "en" : "zh";
+}
+
+export function getHtmlLang(lang: SiteLanguage) {
+	return lang === "en" ? "en" : "zh-CN";
+}
+
+export function getMenuLinks(lang: SiteLanguage): { path: string; title: string }[] {
+	if (lang === "en") {
+		return [
+			{ path: "/en/", title: "Home" },
+			{ path: "/en/blog/", title: "Blog" },
+			{ path: "/en/thinking/", title: "Thinking" },
+			{ path: "/en/about/", title: "About" },
+		];
+	}
+
+	return [
+		{ path: "/zh/", title: "首页" },
+		{ path: "/zh/blog/", title: "博客" },
+		{ path: "/zh/thinking/", title: "随想" },
+		{ path: "/zh/about/", title: "关于我" },
+	];
+}
 
 // https://expressive-code.com/reference/configuration/
 export const expressiveCodeOptions: AstroExpressiveCodeOptions = {

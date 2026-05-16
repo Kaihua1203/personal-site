@@ -9,6 +9,7 @@
 		"start": "astro dev",
 		"build": "astro build",
 		"postbuild": "pagefind --site dist",
+		"test": "node --test",
 		"preview": "astro preview",
 		"check": "astro check && biome check",
 		"lint": "biome check --write",
