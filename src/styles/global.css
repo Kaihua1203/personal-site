@@ -125,7 +125,7 @@
 	}
 
 	.title {
-		@apply text-accent-2 text-3xl font-semibold leading-tight sm:text-[2rem];
+		@apply text-accent-2 text-[2.1rem] font-semibold leading-[1.1] sm:text-[2.55rem];
 	}
 }
 

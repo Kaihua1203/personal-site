@@ -28,6 +28,7 @@ pnpm-debug.log*
 
 # macOS
 .DS_Store
+tutorial.md
 
 # Astro
 .astro/

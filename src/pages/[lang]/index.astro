@@ -1,4 +1,7 @@
 ---
+import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+import FormattedDate from "@/components/FormattedDate.astro";
 import PageLayout from "@/layouts/Base.astro";
 
 export function getStaticPaths() {
@@ -9,17 +12,167 @@ const { lang } = Astro.params;
 const isZh = lang === "zh";
 
 const title = isZh ? "首页" : "Home";
-const desc = isZh ? "欢迎来到我的个人博客。" : "Welcome to my personal blog.";
+const desc = isZh
+	? "一个仍在生长中的双语个人网站。"
+	: "A bilingual personal website that is still taking shape.";
+
+const intro = isZh
+	? "这里会慢慢放进博客、随想、项目碎片，以及一些还没完全成形的念头。"
+	: "This is where blog posts, loose notes, project fragments, and unfinished ideas will gradually collect.";
+const subIntro = isZh
+	? "现在先用占位内容把网站撑起来，后面再逐步替换成真实写作。"
+	: "For now, placeholder content gives the site a fuller shape before it gets replaced with real writing.";
+
+const blogPosts = await getCollection(
+	"blog",
+	(post) => post.data.lang === lang && !post.data.draft,
+);
+blogPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const thoughts = await getCollection(
+	"thinking",
+	(post) => post.data.lang === lang && !post.data.draft,
+);
+thoughts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const latestBlogs = blogPosts.slice(0, 3);
+const latestThoughts = thoughts.slice(0, 3);
+
+const socialLinks = isZh
+	? [
+			{ href: "https://github.com/your-handle", icon: "mdi:github", label: "GitHub" },
+			{ href: "https://x.com/your-handle", icon: "mdi:twitter", label: "X" },
+			{ href: "mailto:hello@example.com", icon: "mdi:email-outline", label: "Email" },
+		]
+	: [
+			{ href: "https://github.com/your-handle", icon: "mdi:github", label: "GitHub" },
+			{ href: "https://x.com/your-handle", icon: "mdi:twitter", label: "X" },
+			{ href: "mailto:hello@example.com", icon: "mdi:email-outline", label: "Email" },
+		];
 ---
 
 <PageLayout meta={{ title, description: desc }}>
-	<section>
-		<h1 class="title mb-6">{title}</h1>
-		<p class="mb-4">{desc}</p>
-		<ul class="space-y-4">
-			<li><a href={`/${lang}/blog/`} class="cactus-link">{isZh ? '博客 (Blog)' : 'Blog'}</a></li>
-			<li><a href={`/${lang}/thinking/`} class="cactus-link">{isZh ? '随想 (Thinking)' : 'Thinking'}</a></li>
-			<li><a href={`/${lang}/about/`} class="cactus-link">{isZh ? '关于我 (About)' : 'About'}</a></li>
-		</ul>
-	</section>
+	<div class="space-y-16">
+		<section class="space-y-6">
+			<p class="text-muted text-sm uppercase tracking-[0.22em]">
+				{isZh ? "个人站点 / 占位版本" : "Personal site / placeholder edition"}
+			</p>
+			<div class="space-y-4">
+				<h1 class="title max-w-2xl">
+					{isZh ? "把正在形成的内容先摆上桌面。" : "A place to put unfinished work in public."}
+				</h1>
+				<p class="max-w-2xl text-lg leading-8">{intro}</p>
+				<p class="text-muted max-w-2xl">{subIntro}</p>
+			</div>
+
+			<div class="flex flex-wrap gap-3 pt-2">
+				<a
+					class="rounded-full border border-border/70 px-4 py-2 text-sm font-semibold transition hover:border-link hover:text-link"
+					href={`/${lang}/blog/`}
+				>
+					{isZh ? "查看博客" : "Read the blog"}
+				</a>
+				<a
+					class="rounded-full border border-border/70 px-4 py-2 text-sm font-semibold transition hover:border-link hover:text-link"
+					href={`/${lang}/thinking/`}
+				>
+					{isZh ? "翻看随想" : "Browse thinking"}
+				</a>
+				<a
+					class="rounded-full border border-border/70 px-4 py-2 text-sm font-semibold transition hover:border-link hover:text-link"
+					href={`/${lang}/about/`}
+				>
+					{isZh ? "关于这个人" : "About the person"}
+				</a>
+			</div>
+
+			<div class="border-border/70 bg-global-bg/60 space-y-4 rounded-[1.75rem] border p-5 sm:p-6">
+				<div class="flex items-center justify-between gap-4">
+					<p class="font-semibold">{isZh ? "占位社交入口" : "Placeholder socials"}</p>
+					<p class="text-muted text-sm">
+						{isZh ? "后续可替换为真实账号" : "Swap these with real links later"}
+					</p>
+				</div>
+				<ul class="flex flex-wrap gap-3">
+					{
+						socialLinks.map((item) => (
+							<li>
+								<a
+									class="inline-flex items-center gap-2 rounded-full border border-border/70 px-3 py-2 text-sm font-semibold transition hover:border-link hover:text-link"
+									href={item.href}
+									rel="noreferrer"
+									target="_blank"
+								>
+									<Icon aria-hidden="true" class="h-4 w-4" name={item.icon} />
+									<span>{item.label}</span>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</section>
+
+		<section class="grid gap-8 lg:grid-cols-2">
+			<div class="space-y-5">
+				<div class="flex items-end justify-between gap-4">
+					<div class="space-y-1">
+						<p class="text-muted text-sm uppercase tracking-[0.18em]">
+							{isZh ? "最新博客" : "Latest blog posts"}
+						</p>
+						<h2 class="text-2xl font-semibold">{isZh ? "较长的写作" : "Longer writing"}</h2>
+					</div>
+					<a class="cactus-link text-sm font-semibold" href={`/${lang}/blog/`}>
+						{isZh ? "全部博客" : "All blog posts"}
+					</a>
+				</div>
+
+				<ul class="divide-border/60 border-border/70 rounded-[1.5rem] border divide-y">
+					{
+						latestBlogs.map((post) => (
+							<li class="space-y-3 p-5">
+								<FormattedDate class="text-muted text-sm font-semibold" date={post.data.date} />
+								<h3 class="text-xl font-semibold leading-snug">
+									<a class="cactus-link" href={`/${lang}/blog/${post.id.split("/").pop()}/`}>
+										{post.data.title}
+									</a>
+								</h3>
+								<p class="text-muted leading-7">{post.data.description}</p>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+
+			<div class="space-y-5">
+				<div class="flex items-end justify-between gap-4">
+					<div class="space-y-1">
+						<p class="text-muted text-sm uppercase tracking-[0.18em]">
+							{isZh ? "最新随想" : "Latest thoughts"}
+						</p>
+						<h2 class="text-2xl font-semibold">{isZh ? "短一些的记录" : "Short-form notes"}</h2>
+					</div>
+					<a class="cactus-link text-sm font-semibold" href={`/${lang}/thinking/`}>
+						{isZh ? "全部随想" : "All thoughts"}
+					</a>
+				</div>
+
+				<ul class="divide-border/60 border-border/70 rounded-[1.5rem] border divide-y">
+					{
+						latestThoughts.map((post) => (
+							<li class="space-y-3 p-5">
+								<FormattedDate class="text-muted text-sm font-semibold" date={post.data.date} />
+								<h3 class="text-xl font-semibold leading-snug">
+									<a class="cactus-link" href={`/${lang}/thinking/${post.id.split("/").pop()}/`}>
+										{post.data.title}
+									</a>
+								</h3>
+								<p class="text-muted leading-7">{post.data.description}</p>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</section>
+	</div>
 </PageLayout>

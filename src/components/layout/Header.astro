@@ -15,7 +15,7 @@ const homePath = `/${currentLang}/`;
 ---
 
 <header
-	class="group relative mb-24 flex flex-col gap-4 sm:ps-18 lg:mb-28"
+	class="group relative mb-28 flex flex-col gap-5 sm:ps-18 lg:mb-32"
 	id="main-header"
 >
 	<div class="flex items-start justify-between gap-4">
@@ -27,7 +27,7 @@ const homePath = `/${currentLang}/`;
 			>
 				<svg
 					aria-hidden="true"
-					class="h-12 w-7 shrink-0 sm:absolute sm:-start-18 sm:h-20 sm:w-12"
+					class="h-12 w-7 shrink-0 sm:absolute sm:-start-18 sm:h-22 sm:w-13"
 					fill="none"
 					focusable="false"
 					viewBox="0 0 272 480"
@@ -47,7 +47,7 @@ const homePath = `/${currentLang}/`;
 						d="m136 53.333 45.333-26.666v120L226.667 120V80L272 53.333V160l-90.667 53.333v240L136 480V306.667L45.334 360V220l45.333-26.667v73.334L136 240z"
 					></path>
 				</svg>
-				<span class="text-[1.35rem] font-bold leading-none sm:text-[1.65rem]">{siteConfig.title}</span>
+				<span class="text-[1.55rem] font-bold leading-none sm:text-[1.95rem]">{siteConfig.title}</span>
 			</a>
 			<nav
 				aria-label="Main menu"
@@ -58,7 +58,7 @@ const homePath = `/${currentLang}/`;
 					navLinks.map((link) => (
 						<a
 							aria-current={Astro.url.pathname === link.path ? "page" : false}
-							class="text-accent px-2 py-4 text-[1rem] font-semibold sm:px-4 sm:py-0 sm:text-[0.98rem] sm:underline-offset-2 sm:hover:underline"
+							class="text-accent px-2 py-4 text-[1.05rem] font-semibold sm:px-4 sm:py-0 sm:text-[1.02rem] sm:underline-offset-2 sm:hover:underline"
 							href={link.path}
 						>
 							{link.title}
@@ -69,17 +69,17 @@ const homePath = `/${currentLang}/`;
 		</div>
 
 		<div class="flex items-center gap-2 sm:gap-3">
+			<Search />
+			<ThemeToggle />
 			<a
 				aria-label={isEn ? "Switch to Chinese" : "切换到 English"}
-				class="inline-flex items-center gap-2 rounded-full border border-border/60 bg-global-bg/80 px-3 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-muted shadow-sm transition hover:border-link hover:text-link"
+				class="inline-flex items-center gap-2 rounded-full border border-border/60 bg-global-bg/80 px-3 py-2 text-[0.74rem] font-semibold uppercase tracking-[0.24em] text-muted shadow-sm transition hover:border-link hover:text-link"
 				href={switcherPath}
 			>
 				<span class:list={{ "text-accent": isEn }}>EN</span>
 				<span aria-hidden="true" class="text-muted/60">/</span>
 				<span class:list={{ "text-accent": !isEn }}>中文</span>
 			</a>
-			<Search />
-			<ThemeToggle />
 			<mobile-button>
 				<button
 					aria-expanded="false"
