@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo A - Editorial Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+SC:wght@400;700&display=swap');
+        
+        :root {
+            --bg: #f7f4ee;
+            --text: #1a1a1a;
+            --line: #1a1a1a;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, system-ui, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* 颗粒感噪点背景 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            border: 1px solid var(--line);
+            display: grid;
+            grid-template-columns: 1fr;
+            min-height: 80vh;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                grid-template-columns: 1fr 3fr;
+            }
+            header {
+                border-right: 1px solid var(--line);
+                border-bottom: none !important;
+            }
+        }
+
+        header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        h1, h2, h3, .serif {
+            font-family: 'Playfair Display', 'Noto Serif SC', serif;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            border-bottom: 2px solid var(--line);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .main-content {
+            padding: 4rem 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .main-content {
+                padding: 4rem;
+            }
+        }
+
+        .article-card {
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .article-card:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .article-card h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            padding: 0.5rem 0;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        p {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>The<br>Journal</h1>
+                <p>Vol. 1 — 2024</p>
+            </div>
+            <div class="meta">设计审查 - 方案 A</div>
+        </header>
+        <main class="main-content">
+            <article class="article-card">
+                <div class="meta">2024年5月16日</div>
+                <h2>回归优雅的排版 (A Return to Typography)</h2>
+                <p>这种布局模仿了印刷媒体的结构完整性。注意严谨的网格、划分空间区域的锐利边框，以及衬线字体带来的毫不妥协的优雅感。底层的噪点纹理将数字画布与纸张的质感联系在一起。我们完全去除了圆角，以建立一种严肃、权威的基调。</p>
+            </article>
+            <article class="article-card">
+                <div class="meta">设计理论</div>
+                <h2>去除圆角的意义</h2>
+                <p>当今的互联网充斥着过于友好的圆角卡片。在这里，每一个元素都在一个精确的边界内运作，就像报纸的排版线一样，克制而高级。</p>
+            </article>
+        </main>
+    </div>
+</body>
+</html>

@@ -67,19 +67,19 @@ const socialLinks = isZh
 
 			<div class="flex flex-wrap gap-3 pt-2">
 				<a
-					class="rounded-full border border-border/70 px-4 py-2 text-sm font-semibold transition hover:border-link hover:text-link"
+					class="rounded-none border border-global-text px-4 py-2 text-sm font-semibold transition hover:bg-global-text hover:text-global-bg"
 					href={`/${lang}/blog/`}
 				>
 					{isZh ? "查看博客" : "Read the blog"}
 				</a>
 				<a
-					class="rounded-full border border-border/70 px-4 py-2 text-sm font-semibold transition hover:border-link hover:text-link"
+					class="rounded-none border border-global-text px-4 py-2 text-sm font-semibold transition hover:bg-global-text hover:text-global-bg"
 					href={`/${lang}/thinking/`}
 				>
 					{isZh ? "翻看随想" : "Browse thinking"}
 				</a>
 				<a
-					class="rounded-full border border-border/70 px-4 py-2 text-sm font-semibold transition hover:border-link hover:text-link"
+					class="rounded-none border border-global-text px-4 py-2 text-sm font-semibold transition hover:bg-global-text hover:text-global-bg"
 					href={`/${lang}/about/`}
 				>
 					{isZh ? "关于这个人" : "About the person"}
@@ -120,19 +120,19 @@ const socialLinks = isZh
 						<p class="text-muted text-sm uppercase tracking-[0.18em]">
 							{isZh ? "最新博客" : "Latest blog posts"}
 						</p>
-						<h2 class="text-2xl font-semibold">{isZh ? "较长的写作" : "Longer writing"}</h2>
+						<h2 class="text-2xl font-serif font-bold tracking-tight">{isZh ? "较长的写作" : "Longer writing"}</h2>
 					</div>
 					<a class="cactus-link text-sm font-semibold" href={`/${lang}/blog/`}>
 						{isZh ? "全部博客" : "All blog posts"}
 					</a>
 				</div>
 
-				<ul class="divide-border/60 border-border/70 rounded-[1.5rem] border divide-y">
+				<ul class="divide-global-text/40 border-global-text rounded-none border divide-y">
 					{
 						latestBlogs.map((post) => (
 							<li class="space-y-3 p-5">
 								<FormattedDate class="text-muted text-sm font-semibold" date={post.data.date} />
-								<h3 class="text-xl font-semibold leading-snug">
+								<h3 class="text-xl font-serif font-bold leading-snug">
 									<a class="cactus-link" href={`/${lang}/blog/${post.id.split("/").pop()}/`}>
 										{post.data.title}
 									</a>
@@ -150,19 +150,19 @@ const socialLinks = isZh
 						<p class="text-muted text-sm uppercase tracking-[0.18em]">
 							{isZh ? "最新随想" : "Latest thoughts"}
 						</p>
-						<h2 class="text-2xl font-semibold">{isZh ? "短一些的记录" : "Short-form notes"}</h2>
+						<h2 class="text-2xl font-serif font-bold tracking-tight">{isZh ? "短一些的记录" : "Short-form notes"}</h2>
 					</div>
 					<a class="cactus-link text-sm font-semibold" href={`/${lang}/thinking/`}>
 						{isZh ? "全部随想" : "All thoughts"}
 					</a>
 				</div>
 
-				<ul class="divide-border/60 border-border/70 rounded-[1.5rem] border divide-y">
+				<ul class="divide-global-text/40 border-global-text rounded-none border divide-y">
 					{
 						latestThoughts.map((post) => (
 							<li class="space-y-3 p-5">
 								<FormattedDate class="text-muted text-sm font-semibold" date={post.data.date} />
-								<h3 class="text-xl font-semibold leading-snug">
+								<h3 class="text-xl font-serif font-bold leading-snug">
 									<a class="cactus-link" href={`/${lang}/thinking/${post.id.split("/").pop()}/`}>
 										{post.data.title}
 									</a>

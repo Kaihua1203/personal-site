@@ -55,6 +55,8 @@
 	--font-sans:
 		"PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system,
 		sans-serif;
+	--font-serif:
+		"Playfair Display", "Noto Serif SC", serif;
 }
 
 @layer base {
@@ -93,6 +95,17 @@
 
 	body {
 		font-family: var(--font-sans);
+		position: relative;
+	}
+
+	/* Editorial Grain Background */
+	body::before {
+		content: "";
+		position: fixed;
+		top: 0; left: 0; width: 100vw; height: 100vh;
+		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+		pointer-events: none;
+		z-index: 50;
 	}
 
 	:target {
@@ -125,7 +138,7 @@
 	}
 
 	.title {
-		@apply text-accent-2 text-[2.1rem] font-semibold leading-[1.1] sm:text-[2.55rem];
+		@apply text-global-text font-serif text-[2.1rem] font-bold leading-[1.1] sm:text-[2.55rem] uppercase tracking-tight border-b-2 border-global-text pb-4 mb-8;
 	}
 }
 

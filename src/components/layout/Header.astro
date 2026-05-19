@@ -73,7 +73,7 @@ const homePath = `/${currentLang}/`;
 			<ThemeToggle />
 			<a
 				aria-label={isEn ? "Switch to Chinese" : "切换到 English"}
-				class="inline-flex items-center gap-2 rounded-full border border-border/60 bg-global-bg/80 px-3 py-2 text-[0.74rem] font-semibold uppercase tracking-[0.24em] text-muted shadow-sm transition hover:border-link hover:text-link"
+				class="inline-flex items-center gap-2 rounded-none border border-global-text bg-global-bg/80 px-3 py-2 text-[0.74rem] font-semibold uppercase tracking-[0.24em] text-muted shadow-sm transition hover:bg-global-text hover:text-global-bg"
 				href={switcherPath}
 			>
 				<span class:list={{ "text-accent": isEn }}>EN</span>
